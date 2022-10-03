@@ -33,6 +33,18 @@ public class LaserTest
         yield return new WaitForSeconds(0.1f);
         UnityEngine.Assertions.Assert.IsNull(asteroid);
     }
+
+    [UnityTest]
+    public IEnumerator checkReload() //ignore shooting button
+    {
+        float prevShotCount = game.GetShip().shotCounter = 9;
+        game.GetShip().ShootLaser();
+        float shotCountAfter = game.GetShip().shotCounter;
+
+        yield return new WaitForSeconds(0.2f);
+
+        Assert.AreEqual(prevShotCount, shotCountAfter);
+    }
 }
 
 
