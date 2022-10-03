@@ -46,6 +46,8 @@ public class Ship : MonoBehaviour
     private GameObject laser;
     [SerializeField]
     private Transform shotSpawn;
+    [SerializeField]
+    private GameObject asteroid;
 
     private float maxLeft = -8;
     private float maxRight = 8;
@@ -71,6 +73,7 @@ public class Ship : MonoBehaviour
         {
             MoveRight();
         }
+
     }
 
     public void ShootLaser()
@@ -78,11 +81,30 @@ public class Ship : MonoBehaviour
         StartCoroutine("Shoot");
     }
 
+    public void ShootSnipp()
+    {
+        if (canShoot)
+        {
+            StartCoroutine("ShootSniper");
+        }
+    }
+
     IEnumerator Shoot()
     {
         canShoot = false;
         GameObject laserShot = SpawnLaser();
         laserShot.transform.position = shotSpawn.position;
+        yield return new WaitForSeconds(0.4f);
+        canShoot = true;
+    }
+
+    IEnumerator ShootSniper()
+    {
+        canShoot = false;
+        GameObject laserShot = SpawnLaser();
+        GameObject laserShot1 = SpawnLaser();
+        laserShot.transform.position = shotSpawn.position;
+        laserShot1.transform.position = shotSpawn.position;
         yield return new WaitForSeconds(0.4f);
         canShoot = true;
     }

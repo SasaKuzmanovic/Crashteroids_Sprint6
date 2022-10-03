@@ -44,6 +44,7 @@ public class Laser : MonoBehaviour
         {
             Destroy(gameObject);
         }
+ 
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -64,5 +65,10 @@ public class Laser : MonoBehaviour
                 Debug.Log("I have 1 more health");
             }
         }
+    }
+
+    public void SniperBullet()
+    {
+
     }
 }
