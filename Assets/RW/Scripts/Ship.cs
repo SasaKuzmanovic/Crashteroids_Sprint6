@@ -32,11 +32,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Ship : MonoBehaviour
 {
     public bool isDead = false;
     public float speed = 1;
     public bool canShoot = true;
+    public int shotCounter = 0;
+    public float targetTime = 2.0f;
 
     [SerializeField]
     private  MeshRenderer mesh;
@@ -71,10 +74,27 @@ public class Ship : MonoBehaviour
         {
             MoveRight();
         }
+
+        if (shotCounter == 10) //Shot Counter
+        {
+            Debug.Log("We out here in the timer ");
+            targetTime -= Time.deltaTime;
+            canShoot = false;
+        }
+
+        if(targetTime <= 0.0f) //Checking if the 2 seconds is up
+        {
+            Debug.Log("Timer hit 0, can shoot again ");
+            canShoot = true;
+            shotCounter = 0;
+            Debug.Log("Target time = " + targetTime);
+        }
+
     }
 
     public void ShootLaser()
     {
+        targetTime = 2.0f; //Setting the target time back to 2 seconds so that multiple bullets do not spawn.
         StartCoroutine("Shoot");
     }
 
@@ -85,6 +105,7 @@ public class Ship : MonoBehaviour
         laserShot.transform.position = shotSpawn.position;
         yield return new WaitForSeconds(0.4f);
         canShoot = true;
+        shotCounter += 1;
     }
 
     public GameObject SpawnLaser()
