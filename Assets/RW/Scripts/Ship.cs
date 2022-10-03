@@ -73,6 +73,10 @@ public class Ship : MonoBehaviour
         {
             MoveRight();
         }
+        if (Input.GetKey(KeyCode.S))
+        {
+            ShootSnipp();
+        }
 
     }
 
