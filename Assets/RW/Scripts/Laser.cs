@@ -66,9 +66,4 @@ public class Laser : MonoBehaviour
             }
         }
     }
-
-    public void SniperBullet()
-    {
-
-    }
 }
