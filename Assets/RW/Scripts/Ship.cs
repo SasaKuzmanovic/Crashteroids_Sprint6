@@ -53,6 +53,11 @@ public class Ship : MonoBehaviour
     private float maxLeft = -8;
     private float maxRight = 8;
 
+    private void Start()
+    {
+        shotCounter = 0;
+    }
+
     private void Update()
     {
         if (isDead)
@@ -78,8 +83,8 @@ public class Ship : MonoBehaviour
         if (shotCounter == 10) //Shot Counter
         {
             Debug.Log("We out here in the timer ");
-            targetTime -= Time.deltaTime;
             canShoot = false;
+            targetTime -= Time.deltaTime;
         }
 
         if(targetTime <= 0.0f) //Checking if the 2 seconds is up
@@ -94,6 +99,7 @@ public class Ship : MonoBehaviour
 
     public void ShootLaser()
     {
+        Debug.Log("Shot Counter: " + shotCounter);
         targetTime = 2.0f; //Setting the target time back to 2 seconds so that multiple bullets do not spawn.
         StartCoroutine("Shoot");
     }
