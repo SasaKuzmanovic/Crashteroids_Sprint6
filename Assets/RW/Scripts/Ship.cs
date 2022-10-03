@@ -37,7 +37,10 @@ public class Ship : MonoBehaviour
     public bool isDead = false;
     public float speed = 1;
     public bool canShoot = true;
-
+    public bool canTripleShoot = true;
+    public float holdDownTimer = 0;
+    public float timerMax = 1.0f;
+    public float downTime;
     [SerializeField]
     private  MeshRenderer mesh;
     [SerializeField]
@@ -62,6 +65,23 @@ public class Ship : MonoBehaviour
             ShootLaser();
         }
 
+        if (Input.GetKeyDown(KeyCode.T) && canTripleShoot)
+        {
+            downTime = Time.time;
+        }
+        if (Input.GetKey(KeyCode.T) && canTripleShoot == true)
+        {
+        
+            if (Time.time - downTime > 1)
+            {
+                canTripleShoot = false;
+
+                Debug.Log("held down for 1 second");
+                StartCoroutine(tripleShotActive());
+
+            }
+        }
+        
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             MoveLeft();
@@ -125,4 +145,17 @@ public class Ship : MonoBehaviour
         mesh.enabled = true;
         isDead = false;
     }
+
+IEnumerator tripleShotActive()
+    {
+        ShootLaser();
+        yield return new WaitForSeconds(0.2f);
+        ShootLaser();
+        yield return new WaitForSeconds(0.2f);
+        ShootLaser();
+        yield return new WaitForSeconds(3.0f);
+        canTripleShoot = true;
+
+    }
+
 }
