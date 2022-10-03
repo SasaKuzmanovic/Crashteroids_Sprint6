@@ -33,6 +33,19 @@ public class LaserTest
         yield return new WaitForSeconds(0.1f);
         UnityEngine.Assertions.Assert.IsNull(asteroid);
     }
+
+    [UnityTest]
+    public IEnumerator CheckTripleShot()
+    {
+        bool canShoot = game.GetShip().canTripleShoot;
+ 
+        yield return new WaitForSeconds(0.1f);
+
+        Assert.IsFalse(canShoot);
+    }
+
+
+
 }
 
 
