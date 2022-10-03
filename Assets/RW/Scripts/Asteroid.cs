@@ -36,10 +36,22 @@ public class Asteroid : MonoBehaviour
 {
     public float speed = 1;
     private float maxY = -5;
-
+    public int health = 1;
     private void Update()
     {
         Move();
+    }
+
+    public void Start()
+    {
+        if (UnityEngine.Random.Range(1, 3) == 2)
+        {
+            health = 2;
+        }
+        else
+        {
+            health = 1;
+        }
     }
 
     public void Move()
