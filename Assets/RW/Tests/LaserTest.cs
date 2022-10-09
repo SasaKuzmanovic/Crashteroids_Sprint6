@@ -38,10 +38,9 @@ public class LaserTest
     public IEnumerator CheckTripleShot()
     {
         bool canShoot = game.GetShip().canTripleShoot;
- 
         yield return new WaitForSeconds(0.1f);
-
-        Assert.IsFalse(canShoot);
+        game.GetShip().tripleShotActive();
+        Assert.IsTrue(canShoot);
     }
 
 
